@@ -23,12 +23,19 @@ export default function Services() {
     }
   }, []);
 
-  const allServices = [
-    { id: 'laptop-rentals', title: 'Laptop Rentals', fullDesc: 'We provide the latest MacBook Pros, Dell XPS, and ThinkPad series configured to your specific workload requirements. Perfect for hybrid teams, temporary projects, or training sessions.', icon: <Laptop size={32} />, features: ['Latest Gen Intel/M-series chips', 'On-site maintenance', 'Flexible rental terms', 'Pre-configured software'], img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&q=80' },
-    { id: 'server-solutions', title: 'Server Rentals', fullDesc: 'Deploy enterprise-grade rack servers and workstations without the massive upfront CAPEX. Ideal for short-term data processing, R&D, or temporary IT solutions expansion.', icon: <Server size={32} />, features: ['Multi-node configurations', 'UPS & Cooling support', 'Data redundancy setup', '24/7 technical monitoring'], img: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80' },
-    { id: 'av-solutions', title: 'Projector & AV Rentals', fullDesc: 'High-lumen projectors, LED walls, and premium audio systems for conferences, product launches, and boardroom presentations in Nagpur and Bangalore.', icon: <Presentation size={32} />, features: ['4K Visual output', 'Professional sound engineering', 'On-site technical operators', 'Seamless connectivity'], img: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&q=80' },
-    { id: 'infrastructure', title: 'IT Solutions Setup', fullDesc: 'End-to-end network architecture, hardware deployment, and workspace technology setup for new offices or facility upgrades.', icon: <Cpu size={32} />, features: ['Network design & audit', 'Structured cabling', 'Workstation deployment', 'Security firewall setup'], img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80' },
-  ];
+ const allServices: {
+  id: string;
+  title: string;
+  fullDesc: string;
+  icon: React.ElementType;
+  features: string[];
+  img: string;
+}[] = [
+  { id: 'laptop-rentals', title: 'Laptop Rentals', fullDesc: 'We provide the latest MacBook Pros, Dell XPS, and ThinkPad series configured to your specific workload requirements. Perfect for hybrid teams, temporary projects, or training sessions.', icon: Laptop, features: ['Latest Gen Intel/M-series chips', 'On-site maintenance', 'Flexible rental terms', 'Pre-configured software'], img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&q=80' },
+  { id: 'server-solutions', title: 'Server Rentals', fullDesc: 'Deploy enterprise-grade rack servers and workstations without the massive upfront CAPEX. Ideal for short-term data processing, R&D, or temporary IT solutions expansion.', icon: Server, features: ['Multi-node configurations', 'UPS & Cooling support', 'Data redundancy setup', '24/7 technical monitoring'], img: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80' },
+  { id: 'av-solutions', title: 'Projector & AV Rentals', fullDesc: 'High-lumen projectors, LED walls, and premium audio systems for conferences, product launches, and boardroom presentations in Nagpur and Bangalore.', icon: Presentation, features: ['4K Visual output', 'Professional sound engineering', 'On-site technical operators', 'Seamless connectivity'], img: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&q=80' },
+  { id: 'infrastructure', title: 'IT Solutions Setup', fullDesc: 'End-to-end network architecture, hardware deployment, and workspace technology setup for new offices or facility upgrades.', icon: Cpu, features: ['Network design & audit', 'Structured cabling', 'Workstation deployment', 'Security firewall setup'], img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80' },
+]
 
   return (
     <div className="pb-24">
@@ -55,8 +62,8 @@ export default function Services() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
           <div className="absolute top-8 left-8 w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-white border border-white/20 shadow-xl group-hover:bg-brand-blue group-hover:border-brand-blue transition-all duration-500">
-            {React.cloneElement(service.icon as React.ReactElement, { size: 28 })}
-          </div>
+  <service.icon size={28} />
+</div>
           <div className="absolute bottom-8 left-8 right-8">
             <h2 className="text-3xl md:text-4xl font-display font-bold text-white tracking-tight">{service.title}</h2>
           </div>
