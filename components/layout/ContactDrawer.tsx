@@ -13,16 +13,13 @@ export default function ContactDrawer() {
 
 useEffect(() => {
   if (isOpen) {
-    lenisInstance?.stop();
     document.body.style.overflow = 'hidden';
     document.documentElement.classList.add('lenis-stopped');
   } else {
-    lenisInstance?.start();
     document.body.style.overflow = 'unset';
     document.documentElement.classList.remove('lenis-stopped');
   }
   return () => {
-    lenisInstance?.start();
     document.body.style.overflow = 'unset';
     document.documentElement.classList.remove('lenis-stopped');
   };
@@ -45,14 +42,12 @@ useEffect(() => {
   animate={{ y: 0 }}
   exit={{ y: '100%' }}
   transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+  data-lenis-prevent
   className="fixed left-0 right-0 bottom-0 h-[85vh] bg-background border-t border-border z-[101] rounded-t-[3rem] shadow-2xl overflow-y-auto overscroll-contain"
   onWheel={(e) => {
     e.stopPropagation();
-    const el = e.currentTarget;
-    el.scrollTop += e.deltaY;
+    e.currentTarget.scrollTop += e.deltaY;
   }}
-  onTouchStart={(e) => e.stopPropagation()}
-  onTouchMove={(e) => e.stopPropagation()}
 >
             <div className="max-w-4xl mx-auto px-6 py-12 relative">
               <button

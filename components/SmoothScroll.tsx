@@ -12,13 +12,14 @@ export let lenisInstance: Lenis | null = null;
 export default function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 0.8,
-      easing: (t) => 1 - Math.pow(1 - t, 4),
-      smoothWheel: true,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.5,
-      infinite: false,
-    });
+  duration: 0.8,
+  easing: (t) => 1 - Math.pow(1 - t, 4),
+  smoothWheel: true,
+  wheelMultiplier: 0.9,
+  touchMultiplier: 1.5,
+  infinite: false,
+  prevent: (node) => node.closest('[data-lenis-prevent]') !== null,
+});
 
     lenisInstance = lenis;
 
