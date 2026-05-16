@@ -17,9 +17,17 @@ export default function Footer() {
           {/* Brand Col */}
           <div className="space-y-8">
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="w-12 h-12 flex items-center justify-center">
-                <Image src="/sapphire_logo.png" alt="Sapphire Logo" className="w-full h-full object-contain"/>
-              </div>
+              import Image from "next/image";
+
+<div className="w-12 h-12 flex items-center justify-center">
+  <Image
+    src="/sapphire_logo.png"
+    alt="Sapphire Logo"
+    width={48}
+    height={48}
+    className="w-full h-full object-contain"
+  />
+</div>
               <div className="flex flex-col">
                 <span className="text-2xl font-display font-bold tracking-tight">SAPPHIRE</span>
                 <span className="text-[10px] text-brand-blue font-medium tracking-[0.2em] uppercase">IT Solutions</span>

@@ -6,10 +6,43 @@ import SectionHeading from '@/components/ui/SectionHeading';
 import MagneticButton from '@/components/ui/MagneticButton';
 import GlowCard from '@/components/ui/GlowCard';
 import PageHero from '@/components/ui/PageHero';
-import { Mail, Phone, MapPin, Send, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageCircle, CheckCircle2 } from 'lucide-react';
 
 export default function Contact() {
   const [selectedCity, setSelectedCity] = useState<'Bangalore' | 'Nagpur'>('Bangalore');
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const [form, setForm] = useState({
+    name: '', email: '', company: '', service: 'Laptop Rentals', message: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(false);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setSuccess(true);
+        setForm({ name: '', email: '', company: '', service: 'Laptop Rentals', message: '' });
+      } else {
+        setError(true);
+      }
+    } catch (err) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const locations = {
     Bangalore: { title: 'Bangalore Strategic Hub', address: 'Prestige Shantiniketan, Whitefield, Bangalore, Karnataka 560048', mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.98!2d77.72!3d12.98!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae11f5f5f5f5f5%3A0x1234567890abcdef!2sWhitefield%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1715760000000!5m2!1sen!2sin' },
@@ -70,43 +103,59 @@ export default function Contact() {
 
           <div className="lg:col-span-7">
             <GlowCard className="p-10 md:p-16">
-              <form className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="flex flex-col gap-3">
-                    <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Full Name</label>
-                    <input type="text" placeholder="Jane Doe" className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground placeholder:text-gray-500" />
+              {success ? (
+                <div className="flex flex-col items-center justify-center py-16 gap-4">
+                  <CheckCircle2 size={64} className="text-brand-blue" />
+                  <h3 className="text-2xl font-display font-bold">Inquiry Sent!</h3>
+                  <p className="text-foreground/60 text-center">We'll get back to you within 2 business hours.</p>
+                </div>
+              ) : (
+                <form className="space-y-8" onSubmit={handleSubmit}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="flex flex-col gap-3">
+                      <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Full Name</label>
+                      <input name="name" value={form.name} onChange={handleChange} type="text" required placeholder="Jane Doe" className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground placeholder:text-gray-500" />
+                    </div>
+                    <div className="flex flex-col gap-3">
+                      <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Work Email</label>
+                      <input name="email" value={form.email} onChange={handleChange} type="email" required placeholder="jane@company.com" className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground placeholder:text-gray-500" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="flex flex-col gap-3">
+                      <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Company</label>
+                      <input name="company" value={form.company} onChange={handleChange} type="text" required placeholder="Enterprise Inc." className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground placeholder:text-gray-500" />
+                    </div>
+                    <div className="flex flex-col gap-3">
+                      <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Service Type</label>
+                      <select name="service" value={form.service} onChange={handleChange} className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground appearance-none">
+                        <option className="bg-background">Laptop Rentals</option>
+                        <option className="bg-background">Server Solutions</option>
+                        <option className="bg-background">AV & Events</option>
+                        <option className="bg-background">IT Solutions Setup</option>
+                      </select>
+                    </div>
                   </div>
                   <div className="flex flex-col gap-3">
-                    <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Work Email</label>
-                    <input type="email" placeholder="jane@company.com" className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground placeholder:text-gray-500" />
+                    <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Project Details</label>
+                    <textarea name="message" value={form.message} onChange={handleChange} rows={5} required placeholder="Describe your requirements, scale, and timeline..." className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground placeholder:text-gray-500 resize-none"></textarea>
                   </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="flex flex-col gap-3">
-                    <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Company</label>
-                    <input type="text" placeholder="Enterprise Inc." className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground placeholder:text-gray-500" />
+
+                  {error && (
+                    <p className="text-red-500 text-sm text-center">Something went wrong. Please try again.</p>
+                  )}
+
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-8 pt-4">
+                    <p className="text-gray-500 text-xs italic">Our team typically responds within <span className="text-brand-blue font-bold">2 business hours</span>.</p>
+                    <MagneticButton className="bg-gradient-premium text-white w-full sm:w-auto px-12 group">
+                      <span className="flex items-center gap-3">
+                        {loading ? 'Sending...' : 'Send Inquiry'}
+                        {!loading && <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />}
+                      </span>
+                    </MagneticButton>
                   </div>
-                  <div className="flex flex-col gap-3">
-                    <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Service Type</label>
-                    <select className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground appearance-none">
-                      <option className="bg-background">Laptop Rentals</option>
-                      <option className="bg-background">Server Solutions</option>
-                      <option className="bg-background">AV & Events</option>
-                      <option className="bg-background">IT Solutions Setup</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-3">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Project Details</label>
-                  <textarea rows={5} placeholder="Describe your requirements, scale, and timeline..." className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground placeholder:text-gray-500 resize-none"></textarea>
-                </div>
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-8 pt-4">
-                  <p className="text-gray-500 text-xs italic">Our team typically responds within <span className="text-brand-blue font-bold">2 business hours</span>.</p>
-                  <MagneticButton className="bg-gradient-premium text-white w-full sm:w-auto px-12 group">
-                    <span className="flex items-center gap-3">Send Inquiry <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></span>
-                  </MagneticButton>
-                </div>
-              </form>
+                </form>
+              )}
             </GlowCard>
           </div>
         </div>
