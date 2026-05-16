@@ -17,7 +17,7 @@ export default function Footer() {
           {/* Brand Col */}
           <div className="space-y-8">
             <Link href="/" className="flex items-center gap-2 group">
-              import Image from "next/image";
+
 
 <div className="w-12 h-12 flex items-center justify-center">
   <Image
