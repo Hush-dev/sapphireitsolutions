@@ -52,8 +52,8 @@ export default function Navbar() {
         isScrolled ? 'glass-nav py-4' : 'bg-transparent py-8'
       )}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center relative">
-          <Link href="/" className="flex items-center gap-1 group shrink-0">
-            <div className="w-15 h-15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+          <Link href="/" className="flex items-center gap-2 group shrink-0">
+            <div className="w-10 h-10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <Image src="/sapphire_logo.png" alt="Sapphire Logo" width={60} height={60} className="object-contain" style={{ width: 'auto' }} />
             </div>
             <div className="flex flex-col">

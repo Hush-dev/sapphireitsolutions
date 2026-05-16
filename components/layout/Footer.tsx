@@ -17,7 +17,7 @@ export default function Footer() {
           {/* Brand Col */}
           <div className="space-y-8">
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="w-17 h-17 flex items-center justify-center">
+              <div className="w-12 h-12 flex items-center justify-center">
                 <Image src="/sapphire_logo.png" alt="Sapphire Logo" width={60} height={60} className="object-contain" style={{ width: 'auto' }} />
               </div>
               <div className="flex flex-col">
