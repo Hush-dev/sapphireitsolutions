@@ -18,7 +18,7 @@ export default function Footer() {
           <div className="space-y-8">
             <Link href="/" className="flex items-center gap-2 group">
               <div className="w-12 h-12 flex items-center justify-center">
-                <Image src="/sapphire_logo.png" alt="Sapphire Logo" width={60} height={60} className="object-contain" style={{ width: 'auto' }} />
+                <Image src="/sapphire_logo.png" alt="Sapphire Logo" className="w-full h-full object-contain"/>
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl font-display font-bold tracking-tight">SAPPHIRE</span>

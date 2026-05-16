@@ -54,7 +54,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center relative">
           <Link href="/" className="flex items-center gap-2 group shrink-0">
             <div className="w-10 h-10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <Image src="/sapphire_logo.png" alt="Sapphire Logo" width={60} height={60} className="object-contain" style={{ width: 'auto' }} />
+              <Image src="/sapphire_logo.png" alt="Sapphire Logo" className="w-full h-full object-contain"/>
             </div>
             <div className="flex flex-col">
               <span className={cn(
