@@ -51,6 +51,8 @@ useEffect(() => {
     const el = e.currentTarget;
     el.scrollTop += e.deltaY;
   }}
+  onTouchStart={(e) => e.stopPropagation()}
+  onTouchMove={(e) => e.stopPropagation()}
 >
             <div className="max-w-4xl mx-auto px-6 py-12 relative">
               <button
