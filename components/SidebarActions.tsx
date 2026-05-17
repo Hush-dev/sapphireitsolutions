@@ -33,28 +33,28 @@ export default function SidebarActions() {
   ];
 
   return (
-    <div className="fixed right-6 bottom-8 z-[60] flex flex-col gap-3 items-end will-change-transform">
-      {actions.map((action, index) => (
-        <motion.button
-          key={action.id}
-          initial={{ opacity: 0, x: 60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 1 + index * 0.15, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          onClick={action.onClick}
-          whileHover={{ scale: 1.05 }}
-          style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
-          className={`group flex items-center gap-3 ${action.color} ${action.shadow} text-white pl-3 pr-4 py-3 rounded-2xl shadow-xl will-change-transform`}
-          title={action.label}
-        >
-          <div className="w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
-            {action.icon}
-          </div>
-          <div className="max-w-0 overflow-hidden group-hover:max-w-[120px] transition-[max-width] duration-300 ease-out text-left">
-            <p className="text-[11px] font-black uppercase tracking-wider whitespace-nowrap">{action.label}</p>
-            <p className="text-[9px] whitespace-nowrap opacity-80">{action.sublabel}</p>
-          </div>
-        </motion.button>
-      ))}
-    </div>
+    <div className="fixed right-0 bottom-8 md:right-6 md:bottom-8 z-[60] flex flex-col gap-3 items-end will-change-transform">
+  {actions.map((action, index) => (
+    <motion.button
+      key={action.id}
+      initial={{ opacity: 0, x: 60 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 1 + index * 0.15, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      onClick={action.onClick}
+      whileHover={{ scale: 1.05 }}
+      style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
+      className={`group flex items-center gap-3 ${action.color} ${action.shadow} text-white pl-3 pr-4 py-3 rounded-l-2xl md:rounded-2xl shadow-xl will-change-transform`}
+      title={action.label}
+    >
+      <div className="w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
+        {action.icon}
+      </div>
+      <div className="max-w-0 overflow-hidden group-hover:max-w-[120px] transition-[max-width] duration-300 ease-out text-left">
+        <p className="text-[11px] font-black uppercase tracking-wider whitespace-nowrap">{action.label}</p>
+        <p className="text-[9px] whitespace-nowrap opacity-80">{action.sublabel}</p>
+      </div>
+    </motion.button>
+  ))}
+</div>
   );
 }
