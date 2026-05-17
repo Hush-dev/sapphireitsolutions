@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
 import { Laptop, Server, Monitor, Shield, Zap, Globe, ArrowRight, CheckCircle2, Rocket, Users, Cpu, Presentation } from 'lucide-react';
@@ -10,10 +10,19 @@ import MagneticButton from '@/components/ui/MagneticButton';
 import { cn } from '@/lib/utils';
 import { useDrawer } from '@/context/DrawerContext';
 
+
+
 export default function Home() {
   const { openDrawer } = useDrawer();
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(1200);
+
+useEffect(() => {
+  if (videoRef.current) {
+    videoRef.current.play().catch(() => {});
+  }
+}, []);
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);
@@ -75,9 +84,17 @@ useEffect(() => {
         <div className="absolute inset-0 bg-black">
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black z-10" />
           {/* ✅ Video moved to public/video/hero.mp4 */}
-          <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-50 scale-105">
-            <source src="/video/hero.mp4" type="video/mp4" />
-          </video>
+          <video
+  ref={videoRef}
+  autoPlay
+  loop
+  muted
+  playsInline
+  preload="auto"
+  className="w-full h-full object-cover opacity-50 scale-105"
+>
+  <source src="/video/hero.mp4" type="video/mp4" />
+</video>
         </div>
 
         <div className="relative z-20 max-w-7xl mx-auto px-6 text-center">
