@@ -302,7 +302,7 @@ useEffect(() => {
               <MagneticButton onClick={openDrawer} className="bg-foreground text-background hover:bg-brand-blue hover:text-white px-10">Contact Our Team</MagneticButton>
               <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-xs md:text-sm font-bold text-foreground/60">
                 <span className="flex items-center gap-2 whitespace-nowrap"><CheckCircle2 className="text-brand-blue w-4 h-4" /> 24/7 Support</span>
-                <span className="flex items-center gap-2 whitespace-nowrap"><CheckCircle2 className="text-brand-blue w-4 h-4" /> Pan India (Nagpur & Bangalore)</span>
+                <span className="flex items-center gap-2 whitespace-nowrap"><CheckCircle2 className="text-brand-blue w-4 h-4" /> Nagpur & Bangalore</span>
               </div>
             </div>
           </GlowCard>

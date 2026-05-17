@@ -5,7 +5,8 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import ContactDrawer from './ContactDrawer';
 import SmoothScroll from '../SmoothScroll';
-import ScrollToTop from '../ScrollToTop'
+import ScrollToTop from '../ScrollToTop';
+import SidebarActions from '../SidebarActions';
 
 interface LayoutProps {
   children: ReactNode;
@@ -20,6 +21,7 @@ export default function Layout({ children }: LayoutProps) {
         <main>{children}</main>
         <Footer />
         <ContactDrawer />
+        <SidebarActions />  {/* ← add here */}
       </div>
     </SmoothScroll>
   );

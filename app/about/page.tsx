@@ -6,6 +6,8 @@ import SectionHeading from '@/components/ui/SectionHeading';
 import GlowCard from '@/components/ui/GlowCard';
 import PageHero from '@/components/ui/PageHero';
 import { Target, Eye, ShieldCheck, Zap, Laptop, Building2, Link2, AtSign, ArrowLeft, ArrowRight } from 'lucide-react';
+import { LinkedInIcon, TwitterIcon } from '@/components/ui/SocialIcons';
+
 
 export default function About() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -94,9 +96,13 @@ export default function About() {
                 <div className={`absolute bottom-0 left-0 right-0 h-3/4 rounded-3xl bg-gradient-to-br ${member.color} backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden transition-all duration-500 group-hover/member:shadow-brand-blue/20 z-0`}>
                   <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay" />
                   <div className="absolute bottom-8 right-8 flex gap-4 z-20">
-                    <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all"><Link2 size={18} /></a>
-<a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all"><AtSign size={18} /></a>
-                  </div>
+  <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all">
+    <LinkedInIcon size={18} />
+  </a>
+  <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all">
+    <TwitterIcon size={18} />
+  </a>
+</div>
                 </div>
                 <div className="absolute top-[28%] left-8 right-8 z-30 pointer-events-none drop-shadow-lg">
                   <h4 className="text-3xl md:text-4xl font-display font-bold text-white mb-1 leading-tight">{member.name}</h4>

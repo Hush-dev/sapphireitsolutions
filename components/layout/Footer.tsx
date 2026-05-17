@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, Phone, MapPin, Link2, AtSign, Globe } from 'lucide-react';
 import { useDrawer } from '@/context/DrawerContext';
+import { LinkedInIcon, TwitterIcon, InstagramIcon } from '@/components/ui/SocialIcons';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -37,12 +38,16 @@ export default function Footer() {
               Premium IT Solutions and rental solutions for forward-thinking enterprises. Powering the future of corporate technology.
             </p>
             <div className="flex gap-4">
-              {[Link2, AtSign, Globe].map((Icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 glass-card rounded-lg flex items-center justify-center text-gray-500 hover:text-brand-blue hover:scale-110 transition-all">
-                  <Icon size={18} />
-                </a>
-              ))}
-            </div>
+  {[
+    { Icon: LinkedInIcon, href: '#' },
+    { Icon: TwitterIcon, href: '#' },
+    { Icon: InstagramIcon, href: '#' },
+  ].map(({ Icon, href }, i) => (
+    <a key={i} href={href} className="w-10 h-10 glass-card rounded-lg flex items-center justify-center text-gray-500 hover:text-brand-blue hover:scale-110 transition-all">
+      <Icon size={18} />
+    </a>
+  ))}
+</div>
           </div>
 
           {/* Quick Links */}
