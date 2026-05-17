@@ -43,16 +43,16 @@ export default function SidebarActions() {
       onClick={action.onClick}
       whileHover={{ scale: 1.05 }}
       style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
-      className={`group flex items-center gap-3 ${action.color} ${action.shadow} text-white pl-3 pr-4 py-3 rounded-l-2xl md:rounded-2xl shadow-xl will-change-transform`}
+      className={`group flex items-center gap-3 ${action.color} ${action.shadow} text-white pl-3 pr-0 md:pr-4 py-3 rounded-l-2xl md:rounded-2xl shadow-xl will-change-transform`}
       title={action.label}
     >
       <div className="w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
         {action.icon}
       </div>
-      <div className="max-w-0 overflow-hidden group-hover:max-w-[120px] transition-[max-width] duration-300 ease-out text-left">
-        <p className="text-[11px] font-black uppercase tracking-wider whitespace-nowrap">{action.label}</p>
-        <p className="text-[9px] whitespace-nowrap opacity-80">{action.sublabel}</p>
-      </div>
+      <div className="hidden md:block max-w-0 overflow-hidden group-hover:max-w-[120px] transition-[max-width] duration-300 ease-out text-left">
+  <p className="text-[11px] font-black uppercase tracking-wider whitespace-nowrap">{action.label}</p>
+  <p className="text-[9px] whitespace-nowrap opacity-80">{action.sublabel}</p>
+</div>
     </motion.button>
   ))}
 </div>
