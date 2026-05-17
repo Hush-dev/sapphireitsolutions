@@ -92,6 +92,7 @@ useEffect(() => {
   playsInline
   preload="auto"
   className="w-full h-full object-cover opacity-50 scale-105"
+  onLoadedData={() => videoRef.current?.play().catch(() => {})}
 >
   <source src="/video/hero.mp4" type="video/mp4" />
 </video>
