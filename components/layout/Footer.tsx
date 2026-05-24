@@ -71,7 +71,7 @@ export default function Footer() {
           <div>
             <h4 className="font-display font-bold text-lg mb-8">Core Services</h4>
             <ul className="space-y-4">
-              {['Laptop Rentals', 'Server Solutions', 'AV & Event Tech', 'Network Deployment', 'Enterprise Support'].map((item) => (
+              {['Apple MackBooks', 'Laptop Rentals', 'Server Solutions', 'AV & Event Tech', 'IT Solutions Setup', 'AMC Services'].map((item) => (
                 <li key={item}>
                   <Link href="/services" className="text-gray-500 hover:text-brand-blue transition-colors text-sm underline-offset-4 hover:underline">
                     {item}
@@ -86,27 +86,35 @@ export default function Footer() {
             <h4 className="font-display font-bold text-lg mb-8">Service Areas</h4>
             <div className="space-y-6">
               <div className="flex gap-4">
-                <MapPin className="text-brand-blue shrink-0" size={20} />
-                <div>
-                  <p className="font-medium text-sm">Nagpur Hub</p>
-                  <p className="text-gray-500 text-xs mt-1 italic">Corporate HQ & Logistics Center</p>
-                </div>
-              </div>
-              <div className="flex gap-4">
                 <MapPin className="text-brand-purple shrink-0" size={20} />
                 <div>
                   <p className="font-medium text-sm">Bangalore Tech Park</p>
-                  <p className="text-gray-500 text-xs mt-1 italic">Strategic Deployment Center</p>
+                  {/* <p className="text-gray-500 text-xs mt-1 italic">Strategic Deployment Center</p> */}
                 </div>
               </div>
+              <div className="flex gap-4">
+                <MapPin className="text-brand-blue shrink-0" size={20} />
+                <div>
+                  <p className="font-medium text-sm">Nagpur Hub</p>
+                  {/* <p className="text-gray-500 text-xs mt-1 italic">Corporate HQ & Logistics Center</p> */}
+                </div>
+              </div>
+              <div className="flex gap-4">
+                {/* <MapPin className="text-brand-blue shrink-0" size={20} /> */}
+                <div>
+                  <p className="font-medium text-sm">Now Also Serving - Hyderabad & Pune</p>
+                  {/* <p className="text-gray-500 text-xs mt-1 italic">Corporate HQ & Logistics Center</p> */}
+                </div>
+              </div>
+              
               <div className="pt-4 space-y-3">
                 <a href="mailto:solutions@sapphireit.com" className="flex items-center gap-3 text-sm text-gray-500 hover:text-brand-blue transition-colors">
                   <Mail size={16} className="text-brand-blue" />
-                  solutions@sapphireit.com
+                  sis4rental@gmail.com
                 </a>
                 <a href="tel:+919876543210" className="flex items-center gap-3 text-sm text-gray-500 hover:text-brand-blue transition-colors">
                   <Phone size={16} className="text-brand-blue" />
-                  +91 (0) 9876 543 210
+                  +91-8208911289
                 </a>
               </div>
             </div>
@@ -115,7 +123,7 @@ export default function Footer() {
 
         <div className="border-t border-border pt-12 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-gray-500 text-xs">
-            © {currentYear} Sapphire IT Solutions. Currently serving Nagpur & Bangalore.
+            © {currentYear} Sapphire IT Solutions. Currently serving Bangalore & Nagpur.
           </p>
           <div className="flex gap-8">
             <a href="#" className="text-gray-500 hover:text-brand-blue text-[10px] uppercase tracking-widest font-bold">Privacy Policy</a>

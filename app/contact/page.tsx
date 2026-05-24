@@ -14,8 +14,8 @@ export default function Contact() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [form, setForm] = useState({
-    name: '', email: '', company: '', service: 'Laptop Rentals', message: ''
-  });
+  name: '', email: '', company: '', service: 'Apple MacBooks', duration: 'Short Term (1-4 Weeks)', message: ''
+});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -33,7 +33,7 @@ export default function Contact() {
       });
       if (res.ok) {
         setSuccess(true);
-        setForm({ name: '', email: '', company: '', service: 'Laptop Rentals', message: '' });
+        setForm({ name: '', email: '', company: '', service: 'Apple MacBooks', duration: 'Short Term (1-4 Weeks)', message: '' });
       } else {
         setError(true);
       }
@@ -63,9 +63,9 @@ export default function Contact() {
 
             <div className="space-y-8">
               {[
-                { icon: <Mail className="text-brand-blue" />, label: 'Email Solutions', val: 'solutions@sapphireit.com' },
-                { icon: <Phone className="text-brand-purple" />, label: 'Fast Response', val: '+91 (0) 9876 543 210' },
-                { icon: <MessageCircle className="text-green-500" />, label: 'WhatsApp Chat', val: '+91 98765 43210' },
+                { icon: <Mail className="text-brand-blue" />, label: 'Email Solutions', val: 'Sis4rental@gmail.com' },
+                { icon: <Phone className="text-brand-purple" />, label: 'Fast Response', val: '+91-8208911289' },
+                { icon: <MessageCircle className="text-green-500" />, label: 'WhatsApp Chat', val: '+91-8208911289' },
               ].map((item, i) => (
                 <div key={i} className="flex gap-6 group cursor-pointer">
                   <div className="w-12 h-12 glass-card rounded-xl flex items-center justify-center group-hover:bg-brand-blue/10 transition-colors">{item.icon}</div>
@@ -121,21 +121,31 @@ export default function Contact() {
                       <input name="email" value={form.email} onChange={handleChange} type="email" required placeholder="jane@company.com" className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground placeholder:text-gray-500" />
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="flex flex-col gap-3">
-                      <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Company</label>
-                      <input name="company" value={form.company} onChange={handleChange} type="text" required placeholder="Enterprise Inc." className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground placeholder:text-gray-500" />
-                    </div>
-                    <div className="flex flex-col gap-3">
-                      <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Service Type</label>
-                      <select name="service" value={form.service} onChange={handleChange} className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground appearance-none">
-                        <option className="bg-background">Laptop Rentals</option>
-                        <option className="bg-background">Server Solutions</option>
-                        <option className="bg-background">AV & Events</option>
-                        <option className="bg-background">IT Solutions Setup</option>
-                      </select>
-                    </div>
-                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div className="flex flex-col gap-2">
+    <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Service Required</label>
+    <select name="service" value={form.service} onChange={handleChange} className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground appearance-none">
+      <option>Apple MacBooks</option>
+      <option>Laptop Rentals</option>
+      <option>Server Solutions</option>
+      <option>Projector & AV Rentals</option>
+      <option>IT Solutions Setup</option>
+      <option>AMC Services</option>
+      <option>Multiple Services</option>
+    </select>
+  </div>
+  <div className="flex flex-col gap-2">
+    <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Rental Duration</label>
+    <select name="duration" value={form.duration} onChange={handleChange} className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground appearance-none">
+      <option>Short Term (1-4 Weeks)</option>
+      <option>Medium Term (1-6 Months)</option>
+      <option>Long Term (6-12 Months)</option>
+      <option>Annual Contract (1 Year+)</option>
+      <option>AMC / Maintenance Only</option>
+      <option>One-Time Event</option>
+    </select>
+  </div>
+</div>
                   <div className="flex flex-col gap-3">
                     <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Project Details</label>
                     <textarea name="message" value={form.message} onChange={handleChange} rows={5} required placeholder="Describe your requirements, scale, and timeline..." className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground placeholder:text-gray-500 resize-none"></textarea>

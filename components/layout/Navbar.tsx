@@ -38,12 +38,14 @@ export default function Navbar() {
   }, [isOpen]);
 
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Services', path: '/services' },
-    { name: 'About', path: '/about' },
-    // { name: 'Insights', path: '/blog' },
-    { name: 'Contact', path: '/contact' },
-  ];
+  { name: 'Home', path: '/' },
+  { name: 'Services', path: '/services' },
+  { name: 'Case Studies', path: '/case-studies' },
+  { name: 'About', path: '/about' },
+  // { name: 'Insights', path: '/blog' },
+  { name: 'FAQ', path: '/faq' },
+  { name: 'Contact', path: '/contact' },
+];
 
   return (
     <>

@@ -40,5 +40,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.6,
     },
+    { url: `${baseUrl}/services/apple-macbooks`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+{ url: `${baseUrl}/services/laptop-rentals`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+{ url: `${baseUrl}/services/server-solutions`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+{ url: `${baseUrl}/services/av-solutions`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+{ url: `${baseUrl}/services/infrastructure`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+{ url: `${baseUrl}/services/amc-services`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
   ]
 }

@@ -5,7 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(req: Request) {
   try {
-    const { name, email, company, service, message } = await req.json()
+    const { name, email, company, service, duration, message } = await req.json()
 
     await resend.emails.send({
       from: 'Sapphire IT <onboarding@resend.dev>',
@@ -17,8 +17,8 @@ export async function POST(req: Request) {
           <table style="width: 100%; border-collapse: collapse;">
             <tr><td style="padding: 8px; font-weight: bold;">Name</td><td>${name}</td></tr>
             <tr><td style="padding: 8px; font-weight: bold;">Email</td><td>${email}</td></tr>
-            <tr><td style="padding: 8px; font-weight: bold;">Company</td><td>${company}</td></tr>
             <tr><td style="padding: 8px; font-weight: bold;">Service</td><td>${service}</td></tr>
+    <tr><td style="padding: 8px; font-weight: bold;">Duration</td><td>${duration}</td></tr>
             <tr><td style="padding: 8px; font-weight: bold;">Message</td><td>${message}</td></tr>
           </table>
         </div>

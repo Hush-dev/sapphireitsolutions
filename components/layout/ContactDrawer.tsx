@@ -13,8 +13,8 @@ export default function ContactDrawer() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [form, setForm] = useState({
-    name: '', email: '', company: '', service: 'Laptop Rentals', message: ''
-  });
+  name: '', email: '', company: '', service: 'Apple MacBooks', duration: 'Short Term (1-4 Weeks)', message: ''
+});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -32,7 +32,7 @@ export default function ContactDrawer() {
       });
       if (res.ok) {
         setSuccess(true);
-        setForm({ name: '', email: '', company: '', service: 'Laptop Rentals', message: '' });
+        setForm({ name: '', email: '', company: '', service: 'Apple MacBooks', duration: 'Short Term (1-4 Weeks)', message: '' });
         setTimeout(() => { setSuccess(false); closeDrawer(); }, 3000);
       } else {
         setError(true);
@@ -116,21 +116,32 @@ export default function ContactDrawer() {
                     </div>
                   </div>
 
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="flex flex-col gap-2">
-                      <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Company Name</label>
-                      <input name="company" value={form.company} onChange={handleChange} type="text" required placeholder="Enterprise Inc." className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground placeholder:text-gray-500" />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Requirement Type</label>
-                      <select name="service" value={form.service} onChange={handleChange} className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground appearance-none">
-                        <option className="bg-background">Laptop Rentals</option>
-                        <option className="bg-background">Server Solutions</option>
-                        <option className="bg-background">AV & Events</option>
-                        <option className="bg-background">IT Solutions Setup</option>
-                      </select>
-                    </div>
-                  </div>
+  <div className="flex flex-col gap-2">
+    <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Service Required</label>
+    <select name="service" value={form.service} onChange={handleChange} className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground appearance-none">
+      <option>Apple MacBooks</option>
+      <option>Laptop Rentals</option>
+      <option>Server Solutions</option>
+      <option>Projector & AV Rentals</option>
+      <option>IT Solutions Setup</option>
+      <option>AMC Services</option>
+      <option>Multiple Services</option>
+    </select>
+  </div>
+  <div className="flex flex-col gap-2">
+    <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Rental Duration</label>
+    <select name="duration" value={form.duration} onChange={handleChange} className="w-full px-6 py-4 bg-card/60 border border-border rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-card/90 transition-all text-foreground appearance-none">
+      <option>Short Term (1-4 Weeks)</option>
+      <option>Medium Term (1-6 Months)</option>
+      <option>Long Term (6-12 Months)</option>
+      <option>Annual Contract (1 Year+)</option>
+      <option>AMC / Maintenance Only</option>
+      <option>One-Time Event</option>
+    </select>
+  </div>
+</div>
 
                   <div className="flex flex-col gap-2">
                     <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 ml-1">Project Details</label>

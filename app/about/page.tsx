@@ -68,55 +68,45 @@ export default function About() {
         </div>
       </section>
 
-      <section className="pb-0 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
-          <SectionHeading badge="The Visionaries" title="Meet the Minds Behind the Tech" subtitle="A team of professionals dedicated to redefining IT infrastructure availability." align="left" className="px-0 mb-0" />
-          <div className="hidden md:flex gap-4 mb-4">
-            <button onClick={() => scroll('left')} className="w-14 h-14 rounded-full border border-border flex items-center justify-center hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-all duration-300"><ArrowLeft size={24} /></button>
-            <button onClick={() => scroll('right')} className="w-14 h-14 rounded-full border border-border flex items-center justify-center hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-all duration-300"><ArrowRight size={24} /></button>
+      <section className="pb-32 px-6">
+  <div className="max-w-7xl mx-auto">
+    <SectionHeading badge="The Visionary" title="Meet the Mind Behind the Tech" subtitle="The professional dedicated to redefining IT infrastructure availability." align="center" />
+    
+    <div className="flex justify-center mt-8">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 30 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="w-[320px] md:w-[400px] h-[550px] relative group/member"
+      >
+        <div className="absolute bottom-0 left-0 right-0 h-3/4 rounded-3xl bg-gradient-to-br from-brand-blue/40 to-brand-blue/5 border border-white/10 shadow-2xl overflow-hidden z-0">
+          <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay" />
+          <div className="absolute bottom-8 right-8 flex gap-4 z-20">
+            <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all">
+              <LinkedInIcon size={18} />
+            </a>
+            <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all">
+              <TwitterIcon size={18} />
+            </a>
           </div>
         </div>
-
-        <div className="relative group">
-          <div ref={scrollRef} className="overflow-x-auto overflow-y-visible pb-12 px-6 snap-x flex gap-8 md:gap-12 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {[
-              { name: 'Aman Singh', role: 'Founder & CEO', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80', color: 'from-brand-blue/40 to-brand-blue/5' },
-              { name: 'Priya Sharma', role: 'Lead Architect', img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80', color: 'from-brand-purple/40 to-brand-purple/5' },
-              { name: 'Rahul Verma', role: 'Operations Head', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80', color: 'from-emerald-400/40 to-emerald-400/5' },
-              { name: 'Sarah Chen', role: 'Client Success Manager', img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80', color: 'from-amber-400/40 to-amber-400/5' },
-            ].map((member, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.95, y: 30 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="flex-none w-[320px] md:w-[400px] h-[550px] relative snap-center group/member will-change-transform"
-              >
-                <div className={`absolute bottom-0 left-0 right-0 h-3/4 rounded-3xl bg-gradient-to-br ${member.color} backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden transition-all duration-500 group-hover/member:shadow-brand-blue/20 z-0`}>
-                  <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay" />
-                  <div className="absolute bottom-8 right-8 flex gap-4 z-20">
-  <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all">
-    <LinkedInIcon size={18} />
-  </a>
-  <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all">
-    <TwitterIcon size={18} />
-  </a>
-</div>
-                </div>
-                <div className="absolute top-[28%] left-8 right-8 z-30 pointer-events-none drop-shadow-lg">
-                  <h4 className="text-3xl md:text-4xl font-display font-bold text-white mb-1 leading-tight">{member.name}</h4>
-                  <p className="text-xs md:text-sm font-bold tracking-widest uppercase text-white/70">{member.role}</p>
-                </div>
-                <div className="absolute inset-x-0 bottom-0 top-[10%] z-10 pointer-events-none flex items-end justify-center overflow-hidden rounded-3xl">
-                  <motion.img src={member.img} alt={member.name} className="w-full h-full object-cover object-top scale-100 group-hover/member:scale-105 transition-transform duration-700" style={{ maskImage: 'linear-gradient(to bottom, black 60%, transparent 95%)' }} />
-                </div>
-              </motion.div>
-            ))}
-            <div className="flex-none w-24 shrink-0" />
-          </div>
+        <div className="absolute top-[28%] left-8 right-8 z-30 pointer-events-none drop-shadow-lg">
+          <h4 className="text-3xl md:text-4xl font-display font-bold text-white mb-1 leading-tight">Amit Kothari</h4>
+          <p className="text-xs md:text-sm font-bold tracking-widest uppercase text-white/70">Founder & CEO</p>
         </div>
-      </section>
+        <div className="absolute inset-x-0 bottom-0 top-[10%] z-10 pointer-events-none flex items-end justify-center overflow-hidden rounded-3xl">
+          <motion.img
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80"
+            alt="Amit Kothari"
+            className="w-full h-full object-cover object-top scale-100 group-hover/member:scale-105 transition-transform duration-700"
+            style={{ maskImage: 'linear-gradient(to bottom, black 60%, transparent 95%)' }}
+          />
+        </div>
+      </motion.div>
+    </div>
+  </div>
+</section>
     </div>
   );
 }
