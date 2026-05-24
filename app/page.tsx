@@ -115,6 +115,7 @@ export default function Home() {
   const { openDrawer } = useDrawer();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [estimateFleet, setEstimateFleet] = useState(30);
+const deferredFleet = React.useDeferredValue(estimateFleet);
   const [activeQuote, setActiveQuote] = useState(0);
   const [selectedCaseStudy, setSelectedCaseStudy] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -183,12 +184,12 @@ const maxScroll = React.useMemo(() =>
   // Fixed lease percentage — constant regardless of fleet size
   const leasePercent = Math.round((2800 / 75000) * 100);
   const purchaseCost = React.useMemo(
-  () => estimateFleet * 75000,
+  () => deferredFleet * 75000,
   [estimateFleet]
 );
 
 const monthlyLease = React.useMemo(
-  () => estimateFleet * 2800,
+  () => deferredFleet * 2800,
   [estimateFleet]
 );
 
@@ -257,14 +258,14 @@ const cashPreserved = React.useMemo(
 
       {/* Rent vs Buy Calculator */}
       <section className="py-24 md:py-32 relative overflow-hidden border-b border-border bg-background">
-        <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] bg-brand-blue/[0.03] rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-brand-purple/[0.03] rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/4 left-1/3 w-[400px] h-[400px] bg-brand-blue/[0.03] rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-brand-purple/[0.03] rounded-full blur-2xl pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl mx-auto text-center mb-16 md:mb-24">
             <SectionHeading align="center" badge="Asset Management Strategy" title="Rent vs. Buy: The Operational Advantage" subtitle="In enterprise growth, outright asset ownership is a depreciating trap. See why India's leading tech operators prioritize low-OPEX fleet leasing over capital-draining procurement." className="px-0" />
           </div>
           <div className="max-w-2xl mx-auto">
-            <div className="bg-card border border-border rounded-[2.5rem] p-8 md:p-10 shadow-lg relative overflow-hidden transform-gpu">
+            <div className="bg-card border border-border rounded-[2.5rem] p-8 md:p-10 shadow-lg relative overflow-hidden transform-gpu will-change-transform">
               <div className="absolute top-0 right-0 w-24 h-24 bg-brand-blue/5 rounded-bl-full pointer-events-none" />
               <div className="space-y-6">
                 <div>
@@ -277,12 +278,8 @@ const cashPreserved = React.useMemo(
                     <span className="text-xl font-display font-black text-brand-blue bg-brand-blue/10 px-3 py-1 rounded-lg border border-brand-blue/20">{estimateFleet} Laptops</span>
                   </div>
                   <input type="range" min="10" max="250" value={estimateFleet} 
-                  onChange={(e) => {
-  requestAnimationFrame(() => {
-    setEstimateFleet(Number(e.target.value));
-  });
-}}
-                  className="w-full h-1 bg-border rounded-lg appearance-none cursor-pointer accent-brand-blue focus:outline-none" />
+                  onChange={(e) => setEstimateFleet(Number(e.target.value))}
+                  className="w-full h-1 bg-border rounded-lg appearance-none cursor-pointer accent-brand-blue focus:outline-none transform-gpu" />
                   <div className="flex justify-between text-[10px] text-foreground/35 font-semibold font-mono tracking-wider">
                     <span>10 DEVICES</span><span>125</span><span>250 DEVICES</span>
                   </div>
@@ -295,7 +292,16 @@ const cashPreserved = React.useMemo(
                       <span className="text-red-500 font-bold">{formatCurrency(purchaseCost)}</span>
                     </div>
                     <div className="w-full bg-border/40 h-2.5 rounded-full overflow-hidden transform-gpu">
-                      <div className="bg-gradient-to-r from-red-500/80 to-red-500 h-full rounded-full w-full" />
+                      <motion.div
+  className="bg-gradient-to-r from-red-500/80 to-red-500 h-full rounded-full"
+  initial={false}
+  animate={{ width: '100%' }}
+  transition={{
+    type: 'spring',
+    stiffness: 120,
+    damping: 20,
+  }}
+/>
                     </div>
                   </div>
                   <div className="space-y-1">
@@ -304,11 +310,18 @@ const cashPreserved = React.useMemo(
                       <span className="text-emerald-500 font-bold">{formatCurrency(monthlyLease)}<span className="text-[10px] font-normal text-foreground/50">/mo</span></span>
                     </div>
                     <div className="w-full bg-border/40 h-2.5 rounded-full overflow-hidden transform-gpu">
-                      <div className="bg-gradient-to-r from-brand-blue to-emerald-400 h-full rounded-full" style={{
-  width: `${leasePercent}%`,
-  transform: 'translate3d(0,0,0)',
-  willChange: 'width',
-}} />
+                      <motion.div
+  className="bg-gradient-to-r from-brand-blue to-emerald-400 h-full rounded-full"
+  initial={false}
+  animate={{
+    width: `${leasePercent}%`,
+  }}
+  transition={{
+    type: 'spring',
+    stiffness: 120,
+    damping: 22,
+  }}
+/>
                     </div>
                   </div>
                 </div>
