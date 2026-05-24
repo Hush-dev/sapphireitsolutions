@@ -152,7 +152,7 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  const formatCurrency = useCallback((amount: number) => {
+  const formatCurrency = React.useCallback((amount: number) => {
     if (amount >= 10000000) return `₹${(amount / 10000000).toFixed(1)} Cr`;
     if (amount >= 100000) return `₹${(amount / 100000).toFixed(1)} Lakhs`;
     return `₹${amount.toLocaleString('en-IN')}`;
@@ -182,6 +182,20 @@ const maxScroll = React.useMemo(() =>
 
   // Fixed lease percentage — constant regardless of fleet size
   const leasePercent = Math.round((2800 / 75000) * 100);
+  const purchaseCost = React.useMemo(
+  () => estimateFleet * 75000,
+  [estimateFleet]
+);
+
+const monthlyLease = React.useMemo(
+  () => estimateFleet * 2800,
+  [estimateFleet]
+);
+
+const cashPreserved = React.useMemo(
+  () => purchaseCost - monthlyLease,
+  [purchaseCost, monthlyLease]
+);
 
   return (
     <div className="overflow-hidden">
@@ -211,8 +225,8 @@ const maxScroll = React.useMemo(() =>
             </Link>
           </motion.div>
         </div>
-        <div className="absolute top-1/4 -left-24 w-96 h-96 bg-brand-blue/20 blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-1/4 -right-24 w-96 h-96 bg-brand-purple/20 blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/4 -left-24 w-96 h-96 bg-brand-blue/20 blur-2xl pointer-events-none" />
+        <div className="absolute bottom-1/4 -right-24 w-96 h-96 bg-brand-purple/20 blur-2xl pointer-events-none" />
       </section>
 
       {/* Trust Marquee — fixed loop */}
@@ -243,14 +257,14 @@ const maxScroll = React.useMemo(() =>
 
       {/* Rent vs Buy Calculator */}
       <section className="py-24 md:py-32 relative overflow-hidden border-b border-border bg-background">
-        <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] bg-brand-blue/5 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-brand-purple/5 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] bg-brand-blue/[0.03] rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-brand-purple/[0.03] rounded-full blur-3xl pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl mx-auto text-center mb-16 md:mb-24">
             <SectionHeading align="center" badge="Asset Management Strategy" title="Rent vs. Buy: The Operational Advantage" subtitle="In enterprise growth, outright asset ownership is a depreciating trap. See why India's leading tech operators prioritize low-OPEX fleet leasing over capital-draining procurement." className="px-0" />
           </div>
           <div className="max-w-2xl mx-auto">
-            <div className="bg-card border border-border rounded-[2.5rem] p-8 md:p-10 shadow-xl relative overflow-hidden">
+            <div className="bg-card border border-border rounded-[2.5rem] p-8 md:p-10 shadow-lg relative overflow-hidden transform-gpu">
               <div className="absolute top-0 right-0 w-24 h-24 bg-brand-blue/5 rounded-bl-full pointer-events-none" />
               <div className="space-y-6">
                 <div>
@@ -262,7 +276,13 @@ const maxScroll = React.useMemo(() =>
                     <span className="text-foreground/50 tracking-wider font-mono font-medium">PROJECTED FLEET SIZE:</span>
                     <span className="text-xl font-display font-black text-brand-blue bg-brand-blue/10 px-3 py-1 rounded-lg border border-brand-blue/20">{estimateFleet} Laptops</span>
                   </div>
-                  <input type="range" min="10" max="250" value={estimateFleet} onChange={(e) => setEstimateFleet(Number(e.target.value))} className="w-full h-1 bg-border rounded-lg appearance-none cursor-pointer accent-brand-blue focus:outline-none" />
+                  <input type="range" min="10" max="250" value={estimateFleet} 
+                  onChange={(e) => {
+  requestAnimationFrame(() => {
+    setEstimateFleet(Number(e.target.value));
+  });
+}}
+                  className="w-full h-1 bg-border rounded-lg appearance-none cursor-pointer accent-brand-blue focus:outline-none" />
                   <div className="flex justify-between text-[10px] text-foreground/35 font-semibold font-mono tracking-wider">
                     <span>10 DEVICES</span><span>125</span><span>250 DEVICES</span>
                   </div>
@@ -272,26 +292,30 @@ const maxScroll = React.useMemo(() =>
                   <div className="space-y-1">
                     <div className="flex justify-between text-xs font-mono">
                       <span className="text-foreground/50">Outright Purchase (CAPEX)</span>
-                      <span className="text-red-500 font-bold">{formatCurrency(estimateFleet * 75000)}</span>
+                      <span className="text-red-500 font-bold">{formatCurrency(purchaseCost)}</span>
                     </div>
-                    <div className="w-full bg-border/40 h-2.5 rounded-full overflow-hidden">
+                    <div className="w-full bg-border/40 h-2.5 rounded-full overflow-hidden transform-gpu">
                       <div className="bg-gradient-to-r from-red-500/80 to-red-500 h-full rounded-full w-full" />
                     </div>
                   </div>
                   <div className="space-y-1">
                     <div className="flex justify-between text-xs font-mono">
                       <span className="text-brand-blue">Sapphire Lease (Opex)</span>
-                      <span className="text-emerald-500 font-bold">{formatCurrency(estimateFleet * 2800)} <span className="text-[10px] font-normal text-foreground/50">/mo</span></span>
+                      <span className="text-emerald-500 font-bold">{formatCurrency(monthlyLease)}<span className="text-[10px] font-normal text-foreground/50">/mo</span></span>
                     </div>
-                    <div className="w-full bg-border/40 h-2.5 rounded-full overflow-hidden">
-                      <div className="bg-gradient-to-r from-brand-blue to-emerald-400 h-full rounded-full" style={{ width: `${leasePercent}%` }} />
+                    <div className="w-full bg-border/40 h-2.5 rounded-full overflow-hidden transform-gpu">
+                      <div className="bg-gradient-to-r from-brand-blue to-emerald-400 h-full rounded-full" style={{
+  width: `${leasePercent}%`,
+  transform: 'translate3d(0,0,0)',
+  willChange: 'width',
+}} />
                     </div>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-border/40">
                   <div className="bg-background border border-border/40 rounded-2xl p-4">
                     <div className="flex items-center gap-2 text-[10px] font-bold text-emerald-500 uppercase tracking-widest"><Coins size={12} /> Cash Preserved</div>
-                    <h3 className="font-display font-bold text-lg text-foreground">{formatCurrency(estimateFleet * 75000 - estimateFleet * 2800)}</h3>
+                    <h3 className="font-display font-bold text-lg text-foreground">{formatCurrency(cashPreserved)}</h3>
                     <span className="text-[9px] text-foreground/45 leading-snug block mt-1">Keep your working liquid capital for core hiring & marketing.</span>
                   </div>
                   <div className="bg-background border border-border/40 rounded-2xl p-4">
@@ -300,14 +324,14 @@ const maxScroll = React.useMemo(() =>
                     <span className="text-[9px] text-foreground/45 leading-snug block mt-1">Never get stuck with depreciated older laptops. Swap at zero cost.</span>
                   </div>
                 </div>
-                <div className="bg-brand-blue/5 border border-brand-blue/20 rounded-2xl p-4 text-center">
+                <div className="bg-brand-blue/[0.03] border border-brand-blue/20 rounded-2xl p-4 text-center">
                   <p className="text-xs text-brand-blue/80 leading-relaxed font-medium">💡 Rented devices are structured as 100% tax-deductible operational expenditures (OPEX), providing substantial tax write-offs compared to buying depreciation curves.</p>
                 </div>
               </div>
             </div>
           </div>
           <div className="mt-16 text-center">
-            <MagneticButton onClick={openDrawer} className="bg-foreground text-background hover:bg-brand-blue hover:text-white px-10 shadow-lg shadow-brand-blue/10">
+            <MagneticButton onClick={openDrawer} className="bg-foreground text-background hover:bg-brand-blue hover:text-white px-10 shadow-md">
               <span className="flex items-center gap-2 font-display text-sm uppercase tracking-widest font-black">Set Up Rented Workforce <ArrowRight className="w-4 h-4" /></span>
             </MagneticButton>
           </div>
@@ -316,7 +340,7 @@ const maxScroll = React.useMemo(() =>
 
       {/* Trust Metrics */}
       <section className="py-20 bg-card border-b border-border relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/4 w-[300px] h-[300px] bg-brand-blue/5 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/4 w-[300px] h-[300px] bg-brand-blue/[0.03] rounded-full blur-xl pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-center lg:divide-x divide-border/40">
             {TRUST_METRICS.map((metric, idx) => (
@@ -486,7 +510,7 @@ const maxScroll = React.useMemo(() =>
 
       {/* Testimonials */}
       <section className="py-32 relative overflow-hidden bg-background border-t border-b border-border/40">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-blue/5 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-blue/[0.03] rounded-full blur-2xl pointer-events-none" />
         <div className="max-w-4xl mx-auto px-6">
           <SectionHeading badge="Partner Feedback" title="What Operators Say" align="center" />
           <div className="mt-16 relative">
@@ -526,7 +550,7 @@ const maxScroll = React.useMemo(() =>
 
       {/* Final CTA */}
       <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-brand-blue/5 blur-[120px]" />
+        <div className="absolute inset-0 bg-brand-blue/[0.03] blur-2xl" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-1.5 bg-gradient-premium rounded-b-full" />
           <GlowCard className="pt-20 pb-10 md:pt-24 md:pb-16 px-6 md:px-16 text-center overflow-hidden relative">
@@ -553,7 +577,7 @@ const maxScroll = React.useMemo(() =>
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               className="relative w-full max-w-2xl bg-background border border-border rounded-[2rem] shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-brand-blue/5 rounded-bl-full pointer-events-none" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-brand-blue/[0.03] rounded-bl-full pointer-events-none" />
               <div className="p-6 md:p-10 overflow-y-auto space-y-8 flex-1" onWheel={(e) => { e.stopPropagation(); e.currentTarget.scrollTop += e.deltaY; }}>
                 <div className="flex justify-between items-start">
                   <div>
